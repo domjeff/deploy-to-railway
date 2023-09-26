@@ -17,6 +17,11 @@ type UserHandler struct {
 	UserService *application.UserService
 }
 
+func (h *UserHandler) Ping(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Ping success")
+}
+
 // CreateUserHandler handles POST requests to create a new user.
 func (h *UserHandler) CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
