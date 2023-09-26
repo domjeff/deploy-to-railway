@@ -136,9 +136,14 @@ func (p *PostgresDB) FindByID(id int) (*domain.User, error) {
 
 func InitPostgresDB() (*PostgresDB, error) {
 	// Load database credentials from .env file
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-		return nil, err
+	switch os.Getenv("ENV_SOURCE") {
+	case "railway":
+
+	default:
+		if err := godotenv.Load(); err != nil {
+			log.Fatalf("Error loading .env file: %v", err)
+			return nil, err
+		}
 	}
 
 	dbHost := os.Getenv("DB_HOST")
